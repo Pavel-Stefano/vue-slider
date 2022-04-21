@@ -2,7 +2,7 @@ const app = new Vue({
     el:'#app',
     data: {
         activeIndex: 0,
-        // scroll: null,
+        intervalId: null,
         slides: [
             {
                 image: 'img/01.jpg',
@@ -41,9 +41,16 @@ const app = new Vue({
             console.log("prev")
         },
         autoScroll(){
-            setInterval(()=>{
+            this.intervalId= setInterval(()=>{
                 this.next();
             }, 3000);
+        },
+        thumbSelected(index){
+            this.activeIndex = index;
+        },
+        stopScroll(){
+            clearInterval(this.intervalId);
+            this.intervalId= null;
         }
     },
     mounted() {
